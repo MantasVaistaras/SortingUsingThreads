@@ -42,8 +42,28 @@ public class App {
 		return new SourceFile(wordCount, list);
 	}
 
-	public String[] sort(String[] wordList) {
+	public String[] QuickSort(String[] wordList) {
+		// implementing Quick Sort algorithm
 		
+		int n = wordList.length;
+		String pivot = wordList[0];
+		int i = 0;
+		int j = n;
+		String temp;
+		while(j > i) {
+			do {
+				i++;
+			} while (pivot.compareTo(wordList[i]) > 0);
+			do {
+				j--;
+			} while (pivot.compareTo(wordList[j]) < 0);
+			temp = wordList[j];
+			wordList[j] = wordList[i];
+			wordList[i] = temp;
+		}
+		temp = wordList[j];
+		wordList[j] = pivot;
+		wordList[0] = temp;
 		
 	}
 }
