@@ -17,20 +17,43 @@ public class App {
 			System.exit(0);
 		}
 		
-		int threadCount;
+		int threadCount = 0;
 		try {
 			threadCount = Integer.parseInt(threadCntString);
 		} catch (NumberFormatException e) {
 			System.out.println("First parameter must be provided in the number format.");
 		}
 		SourceFile sourceFile = readFile(file);
+		int wordCount = sourceFile.getWordCount();
 		String[] list = sourceFile.getWordList();
-		QuickSort(0, list.length-1, list);
-		for (int i = 0; i < list.length; i++) {
-			String string = list[i];
-			System.out.println(string);
+		//QuickSort(0, list.length-1, list);
+		
+		/*Implementing multi-threading. Each thread will have to sort n = wordCount/threadCount(+-1) words.
+		 * the number of threads that will sort n+1 words x = wordCount%threadCount
+		 * the number of threads that will sort n words y = threadCount - x
+		 */
+		int x = wordCount%threadCount;
+		int y = threadCount - x;
+		int n = wordCount/threadCount;
+		for (int i = 0; i < y; i++) {
+			String[] array = new String[n];
+			System.arraycopy(list, i*n, array, 0, n);
+			System.out.println();
+			System.out.println("Array number " + i + " with a length " + n);
+			for (int j = 0; j < array.length; j++) {
+				System.out.println(array[j]);
+			}
 		}
-
+		for (int i = 0; i < x; i++) {
+			String[] array = new String[n+1];
+			System.arraycopy(list, (y*n + (i*(n+1))), array, 0, (n+1));
+			System.out.println();
+			System.out.println("Array number " + y+i + " with a length " + (n+1));
+			for (int j = 0; j < array.length; j++) {
+				System.out.println(array[j]);
+			}
+		}
+		
 	}
 	
 	public static SourceFile readFile(String fileName) {
