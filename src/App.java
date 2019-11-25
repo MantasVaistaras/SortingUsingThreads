@@ -35,23 +35,19 @@ public class App {
 		int x = wordCount%threadCount;
 		int y = threadCount - x;
 		int n = wordCount/threadCount;
+		Monitor monitor = new Monitor();
 		for (int i = 0; i < y; i++) {
 			String[] array = new String[n];
 			System.arraycopy(list, i*n, array, 0, n);
-			System.out.println();
-			System.out.println("Array number " + i + " with a length " + n);
-			for (int j = 0; j < array.length; j++) {
-				System.out.println(array[j]);
-			}
+			Runner runner = new Runner(array, monitor);
+			runner.start();
+
 		}
 		for (int i = 0; i < x; i++) {
 			String[] array = new String[n+1];
 			System.arraycopy(list, (y*n + (i*(n+1))), array, 0, (n+1));
-			System.out.println();
-			System.out.println("Array number " + y+i + " with a length " + (n+1));
-			for (int j = 0; j < array.length; j++) {
-				System.out.println(array[j]);
-			}
+			Runner runner = new Runner(array, monitor);
+			runner.start();
 		}
 		
 	}
