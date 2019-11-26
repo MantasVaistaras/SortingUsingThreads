@@ -11,15 +11,14 @@ public class Runner extends Thread{
 	
 	public void run() {
 		App.QuickSort(0, this.array.length-1, this.array);
-		monitor.takeSortedArray(this.array);
-		//wait until the monitor has two sorted arrays ready
-		String[] array1 = monitor.getFirstSortedArray();
-		String[] array2 = monitor.getSecondSortedArray();
+		TwoArrays twoSortedArrays = monitor.takeSortedArray(this.array);
+		if(twoSortedArrays != null) {
+			merge(twoSortedArrays.getFirsSortedArray(), twoSortedArrays.getSecondSortedArray());
+		}	
 	}
 	
-	/*
-	public String[] mergeArrays(String[] array1, String[] array2) {
-		
+	public static String[] merge() {
+		//method which merges two sorted arrays and returns one sorted array
 	}
-	*/
+	
 }
