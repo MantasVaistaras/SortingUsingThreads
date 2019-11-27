@@ -36,6 +36,7 @@ public class App {
 		int y = threadCount - x;
 		int n = wordCount/threadCount;
 		Monitor monitor = new Monitor();
+		/*
 		for (int i = 0; i < y; i++) {
 			String[] array = new String[n];
 			System.arraycopy(list, i*n, array, 0, n);
@@ -49,6 +50,7 @@ public class App {
 			Runner runner = new Runner(array, monitor);
 			runner.start();
 		}
+		*/
 		
 	}
 	
@@ -61,8 +63,18 @@ public class App {
 		}	
 		int wordCount = Integer.parseInt(in.nextLine());
 		String[] list = new String[wordCount];
-		for (int i = 0; i < wordCount; i++) {
+		int i = 0;
+
+		while(in.hasNext() == true && i < wordCount) {
 			list[i] = in.nextLine();
+			i++;
+		}
+		if(in.hasNext() == true) {
+			System.out.println("There are actually more words than stated in the first line.");
+			System.exit(0);
+		}else if(i < wordCount){
+			System.out.println("There are actually less words than stated in the first line. The number of words given is " + i);
+			System.exit(0);
 		}
 		return new SourceFile(wordCount, list);
 	}
