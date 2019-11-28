@@ -35,22 +35,31 @@ public class App {
 		int x = wordCount%threadCount;
 		int y = threadCount - x;
 		int n = wordCount/threadCount;
+		if(n <= 1 && wordCount > 1) {
+			//In this case there is no point to have so many threads when the list is so small. Each thread should handle minimum 2 words
+			threadCount = wordCount/2;
+			x = wordCount%threadCount;
+			y = threadCount - x;
+			n = wordCount/threadCount;
+		}else if(wordCount < 2){
+			System.out.println("There is nothing to sort.");
+			System.exit(0);
+		}
 		Monitor monitor = new Monitor();
-		/*
+
 		for (int i = 0; i < y; i++) {
 			String[] array = new String[n];
-			System.arraycopy(list, i*n, array, 0, n);
+			System.arraycopy(list, i*n, array, 0, n);		
 			Runner runner = new Runner(array, monitor);
 			runner.start();
-
 		}
+		
 		for (int i = 0; i < x; i++) {
 			String[] array = new String[n+1];
 			System.arraycopy(list, (y*n + (i*(n+1))), array, 0, (n+1));
 			Runner runner = new Runner(array, monitor);
 			runner.start();
 		}
-		*/
 		
 	}
 	
@@ -108,6 +117,9 @@ public class App {
 				QuickSort(i+2, high, wordList);
 			}
 		}
+		
+		
 	
 	}
+	
 }

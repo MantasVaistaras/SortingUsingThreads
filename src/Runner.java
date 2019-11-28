@@ -18,7 +18,7 @@ public class Runner extends Thread{
 		}	
 	}
 	
-	public static String[] merge(String[] array1, String[] array2) {
+	public String[] merge(String[] array1, String[] array2) {
 		//method which merges two sorted arrays and returns one sorted array
 		String[] array = new String[(array1.length+array2.length)];
 		int j = 0;
@@ -30,7 +30,7 @@ public class Runner extends Thread{
 				}else{
 					array[i+j] = array2[j];
 					j++;
-				}
+				}			
 			} else {
 				array[i+j] = array1[i];
 			}			
