@@ -26,7 +26,6 @@ public class App {
 		SourceFile sourceFile = readFile(file);
 		int wordCount = sourceFile.getWordCount();
 		String[] list = sourceFile.getWordList();
-		//QuickSort(0, list.length-1, list);
 		
 		/*Implementing multi-threading. Each thread will have to sort n = wordCount/threadCount(+-1) words.
 		 * the number of threads that will sort n+1 words x = wordCount%threadCount
@@ -89,7 +88,7 @@ public class App {
 	}
 	
 	public static void QuickSort(int low, int high, String[] wordList) {
-		// implementing Quick Sort algorithm		
+		// implementing Quick Sort algorithm
 		String pivot = wordList[high];
 		int i = low - 1;
 		String temp;
@@ -116,10 +115,6 @@ public class App {
 				//there are more than one element to the right of the pivot
 				QuickSort(i+2, high, wordList);
 			}
-		}
-		
-		
-	
-	}
-	
+		}				
+	}	
 }
