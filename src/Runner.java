@@ -14,7 +14,7 @@ public class Runner extends Thread{
 		TwoArrays twoSortedArrays = monitor.takeSortedArray(this.array);
 		while(twoSortedArrays != null) {
 			this.array = merge(twoSortedArrays.getFirsSortedArray(), twoSortedArrays.getSecondSortedArray());
-			twoSortedArrays = monitor.takeSortedArray(this.array);
+			twoSortedArrays = this.monitor.takeSortedArray(this.array);			
 		}	
 	}
 	
@@ -37,6 +37,7 @@ public class Runner extends Thread{
 					}			
 				} else {
 					array[i+j] = array1[i];
+					haveToMoveI = true;
 				}	
 			}
 		
