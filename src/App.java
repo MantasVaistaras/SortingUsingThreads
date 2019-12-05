@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class App {
 
@@ -48,38 +51,36 @@ public class App {
 			System.exit(0);
 		}
 		Monitor monitor = new Monitor();	
-		//creating an array of threads and launching them
-		Runner[] threads = new Runner[threadCount];
+		//creating a pool of threads and launching them
+		long start = System.currentTimeMillis();
+		ExecutorService executor = Executors.newFixedThreadPool(threadCount);
 		for (int i = 0; i < y; i++) {
 			String[] array = new String[n];
-			System.arraycopy(list, i*n, array, 0, n);		
-			Runner runner = new Runner(array, monitor);
-			runner.start();
-			threads[i] = runner;
+			System.arraycopy(list, i*n, array, 0, n);
+			executor.submit(new Runner(array, monitor));
 		}		
 		for (int i = 0; i < x; i++) {
 			String[] array = new String[n+1];
 			System.arraycopy(list, (y*n + (i*(n+1))), array, 0, (n+1));
-			Runner runner = new Runner(array, monitor);
-			runner.start();
-			threads[y+i] = runner;
-		}	
-		for (int i = 0; i < threadCount; i++) {
-			try {
-				threads[i].join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}		
+			executor.submit(new Runner(array, monitor));
+		}
 		
+		executor.shutdown();
+		try {
+			executor.awaitTermination(1, TimeUnit.DAYS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		String[] finalSortedArray = monitor.getArray();
+		long end = System.currentTimeMillis();
+		
 		//Creating manual tests to see if the program actually works
-		isTheSizeRight(finalSortedArray, wordCount);
-		isTheLastElementNull(finalSortedArray);
-		isItSorted(finalSortedArray);
+		new ManualTests(finalSortedArray, wordCount);
 		
 		//Writing the final sorted list into the file provided by the user
 		writeToFile(finalSortedArray, outputFile);
+		System.out.println();
+		System.out.println("It took " + (end-start) + " millisecond to sort the list with " + threadCount + " thread(s).");
 	}
 	
 	private static void writeToFile(String[] array, String filename) {
@@ -92,43 +93,6 @@ public class App {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-	}
-
-	private static void isItSorted(String[] finalSortedArray) {
-		// goes through all the elements and checks if the word in the place i is preceding the word in the place i+1
-		for (int i = 0; i < (finalSortedArray.length-1); i++) {
-			if(finalSortedArray[i].compareTo(finalSortedArray[i+1]) <= 0) {
-				//OK
-			}else {
-				System.out.println("The array is not sorted! The element in the i position is not preceding the element in the i+1 position.");
-				System.out.println("Where i = " + i);
-				System.out.println("Word[i] = " + finalSortedArray[i]);
-				System.out.println("Word[i+1] = " + finalSortedArray[i+1]);
-				System.exit(0);
-			}
-		}
-		System.out.println("The words are actually sorted. It works!");
-	}
-
-	private static void isTheLastElementNull(String[] finalSortedArray) {
-		// checking if the last element is null or not (if program works - there should be no null in the end)
-		int n = finalSortedArray.length;
-		if(finalSortedArray[n-1] != null) {
-			System.out.println("The last element is NOT null. Great!");
-		}else {
-			System.out.println("Last element is null. Something went wrong.");
-		}
-		
-	}
-
-	private static void isTheSizeRight(String[] finalArray, int wordCount) {
-		// checks if the word count of the final sorted list is the same as in the provided list
-		if(finalArray.length == wordCount) {
-			System.out.println("The count of the words are matching");
-		}else {
-			System.out.println("The count of the words is NOT matching");
 		}
 		
 	}
