@@ -9,7 +9,7 @@ Quick Sort Algorithm was chosen to be implemented for this project. The average 
 
 The manual testing is implemented to check if the list really gets sorted.
 
-For the example to test perofromance the list of 479623 words has been used.
+To test the performance the list of 479623 words has been used.
 
 ![alt text](https://github.com/Manteliz/SortingUsingThreads/blob/master/threading.png)
 
