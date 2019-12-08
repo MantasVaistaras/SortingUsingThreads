@@ -5,7 +5,7 @@ In the example above, the Java program uses 128 threads, reads the words from th
 
 The first line of the input file is an integer specifying how many words there are in the file. The rest of the file contains all the words to be sorted separated by line breaks.
 
-Quick Sort Algorith was chosen to be implemented for this project. The average complexity is n*log(n).
+Quick Sort Algorithm was chosen to be implemented for this project. The average complexity is n*log(n).
 
 The manual testing is implemented to check if the list really gets sorted.
 
