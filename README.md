@@ -13,6 +13,6 @@ The list of 479623 words has been used to test how the performance speed changes
 
 ![alt text](https://github.com/Manteliz/SortingUsingThreads/blob/master/threading.png)
 
-It looks like a thread count of 5 is the optimal number to minimize the performance time. (Launching too many threads overloads the computer system unnecessary)
+It looks like a thread count of 6 is the optimal number to minimize the performance time. (Launching too many threads overloads the computer system unnecessary)
 
 
