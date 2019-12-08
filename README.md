@@ -9,4 +9,6 @@ Quick Sort Algorithm was chosen to be implemented for this project. The average 
 
 The manual testing is implemented to check if the list really gets sorted.
 
+![alt text](https://github.com/Manteliz/SortingUsingThreads/blob/master/threading.png)
+
 
