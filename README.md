@@ -1,5 +1,5 @@
 # Multi-Threading
-Program which sorts words using threads. The program has to receive three parameters in the command line: an integer that specifies the number of threads to be used for sorting, the file name of an input file and an output file name. Example of the command line:
+Program which sorts the words by the use of threads. The program has to receive three parameters in the command line: an integer that specifies the number of threads to be used for sorting, the file name of an input file and an output file name. Example of the command line:
 "128 names.txt out.txt"
 In the example above, the Java program uses 128 threads, reads the words from the file named "names.txt" and prints the result to the file "out.txt".
 
